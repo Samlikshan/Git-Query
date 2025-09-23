@@ -1,16 +1,15 @@
 import express from "express";
 import morgan from "morgan";
 
-import { errorHandler } from "./presentation/middlewares/erorr.middleware";
+import { errorMiddleware } from "./presentation/middlewares/erorr.middleware";
+import indexrouter from "./presentation/routes/index";
 
 const app = express();
 
 app.use(express.json());
 app.use(morgan("dev"));
 
-app.get("/", (_req, res) => {
-  res.json({ message: "Api is running" });
-});
+app.use("/api", indexrouter);
 
-app.use(errorHandler);
+app.use(errorMiddleware);
 export default app;
