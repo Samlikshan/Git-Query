@@ -7,6 +7,7 @@ const TYPES = {
   SearchUser: Symbol.for("SearchUser"),
   listUsers: Symbol.for("ListUsers"),
   SoftDeleteUser: Symbol.for("SoftDeleteUser"),
+  UpdateUser: Symbol.for("UpdateUser"),
   UserController: Symbol.for("UserController"),
 };
 

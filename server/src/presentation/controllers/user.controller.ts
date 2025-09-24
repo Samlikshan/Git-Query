@@ -7,6 +7,7 @@ import { GetMutualFriends } from "../../application/usecases/getmutualfriends.us
 import { SearchUsers } from "../../application/usecases/searchuser.usecase";
 import { ListUsers } from "../../application/usecases/listusers.usecase";
 import { SoftDeleteUser } from "../../application/usecases/softdeleteuser.usecase";
+import { UpdateUser } from "../../application/usecases/updateuser.usecase";
 
 @injectable()
 export class UserController {
@@ -17,6 +18,7 @@ export class UserController {
     @inject(TYPES.SearchUser) private searchUserUseCase: SearchUsers,
     @inject(TYPES.listUsers) private listUsersUseCase: ListUsers,
     @inject(TYPES.SoftDeleteUser) private softDeleteUserUseCase: SoftDeleteUser,
+    @inject(TYPES.UpdateUser) private updateUserUseCase: UpdateUser,
   ) {}
 
   async getuser(req: Request, res: Response, next: NextFunction) {
@@ -116,6 +118,30 @@ export class UserController {
       res.status(200).json({
         message: `User ${username} soft deleted successfully`,
         user: deletedUser,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async updateUser(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { username } = req.params;
+      if (!username) {
+        throw new BaseError("ValidationError", 400, "username is required");
+      }
+
+      const { location, blog, bio } = req.body;
+
+      const updatedUser = await this.updateUserUseCase.execute(username, {
+        location,
+        blog,
+        bio,
+      });
+
+      res.status(200).json({
+        message: `User ${username} updated successfully`,
+        user: updatedUser,
       });
     } catch (error) {
       next(error);

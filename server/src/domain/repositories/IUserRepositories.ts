@@ -16,4 +16,5 @@ export interface IUserRepositories {
     limit: number,
   ): Promise<{ users: User[]; total: number }>;
   softDeleteById(id: number): Promise<User | null>;
+  updateByLogin(username: string, data: Partial<User>): Promise<User>;
 }
