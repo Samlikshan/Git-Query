@@ -7,6 +7,7 @@ const router = Router();
 const userController = container.get<UserController>(TYPES.UserController);
 
 router.get("/", userController.searchUsers.bind(userController));
+router.get("/list", userController.listUsers.bind(userController));
 
 router.post("/:username", userController.getuser.bind(userController));
 router.post(

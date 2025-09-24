@@ -19,6 +19,7 @@ export class UserRepositories implements IUserRepositories {
       data: user,
     });
   }
+
   async searchUsers(
     filters: { username?: string; location?: string },
     page: number = 1,
@@ -44,6 +45,35 @@ export class UserRepositories implements IUserRepositories {
         orderBy: { createdAt: "desc" },
       }),
       prisma.user.count({ where }),
+    ]);
+
+    return { users, total };
+  }
+
+  async listUsers(
+    sortBy: string = "createdAt",
+    order: "asc" | "desc" = "desc",
+    page: number = 1,
+    limit: number = 10,
+  ): Promise<{ users: User[]; total: number }> {
+    const allowedSortFields: Record<string, string> = {
+      public_repos: "publicRepos",
+      public_gists: "publicGists",
+      followers: "followers",
+      following: "following",
+      created_at: "createdAt",
+    };
+
+    const prismaField = allowedSortFields[sortBy] || "createdAt";
+
+    const [users, total] = await prisma.$transaction([
+      prisma.user.findMany({
+        where: { isDeleted: false },
+        skip: (page - 1) * limit,
+        take: limit,
+        orderBy: { [prismaField]: order },
+      }),
+      prisma.user.count({ where: { isDeleted: false } }),
     ]);
 
     return { users, total };

@@ -9,4 +9,10 @@ export interface IUserRepositories {
     page: number,
     limit: number,
   ): Promise<{ users: User[]; total: number }>;
+  listUsers(
+    sortBy: string,
+    order: "asc" | "desc",
+    page: number,
+    limit: number,
+  ): Promise<{ users: User[]; total: number }>;
 }

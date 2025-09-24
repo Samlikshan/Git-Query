@@ -10,6 +10,7 @@ import { GetMutualFriends } from "../application/usecases/getmutualfriends.useca
 import { IFriendsRepository } from "../domain/repositories/IFriendsRepositories";
 import { FriendsRepository } from "../infrastructure/repositories/friend.repository";
 import { SearchUsers } from "../application/usecases/searchuser.usecase";
+import { ListUsers } from "../application/usecases/listusers.usecase";
 
 const container = new Container();
 
@@ -39,6 +40,7 @@ container
   .bind<SearchUsers>(TYPES.SearchUser)
   .to(SearchUsers)
   .inSingletonScope();
+container.bind<ListUsers>(TYPES.listUsers).to(ListUsers).inSingletonScope();
 
 // Controllers
 container

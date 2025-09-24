@@ -5,13 +5,16 @@ import TYPES from "../../config/types";
 import { BaseError } from "../../infrastructure/errors/base.error";
 import { GetMutualFriends } from "../../application/usecases/getmutualfriends.usecase";
 import { SearchUsers } from "../../application/usecases/searchuser.usecase";
+import { ListUsers } from "../../application/usecases/listusers.usecase";
 
 @injectable()
 export class UserController {
   constructor(
-    @inject(TYPES.CreateUser) private createUser: CreateUser,
-    @inject(TYPES.GetMutualFriends) private getMutualFriends: GetMutualFriends,
-    @inject(TYPES.SearchUser) private searchUser: SearchUsers,
+    @inject(TYPES.CreateUser) private createUserUseCase: CreateUser,
+    @inject(TYPES.GetMutualFriends)
+    private getMutualFriendsUseCawse: GetMutualFriends,
+    @inject(TYPES.SearchUser) private searchUserUseCase: SearchUsers,
+    @inject(TYPES.listUsers) private listUsersUseCase: ListUsers,
   ) {}
 
   async getuser(req: Request, res: Response, next: NextFunction) {
@@ -22,7 +25,7 @@ export class UserController {
         throw new BaseError("ValidationError", 400, "username is required");
       }
 
-      const user = await this.createUser.execute(username);
+      const user = await this.createUserUseCase.execute(username);
       res.status(201).json(user);
     } catch (err: any) {
       next(err);
@@ -36,7 +39,7 @@ export class UserController {
       if (!username) {
         throw new BaseError("ValidationError", 400, "username is required");
       }
-      const mutualFriends = await this.getMutualFriends.execute(
+      const mutualFriends = await this.getMutualFriendsUseCawse.execute(
         username,
         forceRefresh,
       );
@@ -50,8 +53,37 @@ export class UserController {
     try {
       const { username, location, page = "1", limit = "10" } = req.query;
 
-      const result = await this.searchUser.execute(
+      const result = await this.searchUserUseCase.execute(
         { username: username as string, location: location as string },
+        parseInt(page as string, 10),
+        parseInt(limit as string, 10),
+      );
+
+      res.status(200).json({
+        data: result.users,
+        pagination: {
+          total: result.total,
+          page: parseInt(page as string, 10),
+          limit: parseInt(limit as string, 10),
+          totalPages: Math.ceil(result.total / parseInt(limit as string, 10)),
+        },
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+  async listUsers(req: Request, res: Response, next: NextFunction) {
+    try {
+      const {
+        sortBy = "created_at",
+        order = "desc",
+        page = "1",
+        limit = "10",
+      } = req.query;
+
+      const result = await this.listUsersUseCase.execute(
+        sortBy as string,
+        order as "asc" | "desc",
         parseInt(page as string, 10),
         parseInt(limit as string, 10),
       );
