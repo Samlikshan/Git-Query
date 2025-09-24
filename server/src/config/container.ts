@@ -9,7 +9,6 @@ import { UserController } from "../presentation/controllers/user.controller";
 import { GetMutualFriends } from "../application/usecases/getmutualfriends.usecase";
 import { IFriendsRepository } from "../domain/repositories/IFriendsRepositories";
 import { FriendsRepository } from "../infrastructure/repositories/friend.repository";
-import { SearchUsers } from "../application/usecases/searchuser.usecase";
 import { ListUsers } from "../application/usecases/listusers.usecase";
 import { SoftDeleteUser } from "../application/usecases/softdeleteuser.usecase";
 import { UpdateUser } from "../application/usecases/updateuser.usecase";
@@ -37,10 +36,6 @@ container.bind<CreateUser>(TYPES.CreateUser).to(CreateUser).inSingletonScope();
 container
   .bind<GetMutualFriends>(TYPES.GetMutualFriends)
   .to(GetMutualFriends)
-  .inSingletonScope();
-container
-  .bind<SearchUsers>(TYPES.SearchUser)
-  .to(SearchUsers)
   .inSingletonScope();
 container.bind<ListUsers>(TYPES.listUsers).to(ListUsers).inSingletonScope();
 container

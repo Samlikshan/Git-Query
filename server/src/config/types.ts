@@ -4,7 +4,6 @@ const TYPES = {
   GithubService: Symbol.for("GithubService"),
   CreateUser: Symbol.for("CreateUser"),
   GetMutualFriends: Symbol.for("GetMutualFriends"),
-  SearchUser: Symbol.for("SearchUser"),
   listUsers: Symbol.for("ListUsers"),
   SoftDeleteUser: Symbol.for("SoftDeleteUser"),
   UpdateUser: Symbol.for("UpdateUser"),

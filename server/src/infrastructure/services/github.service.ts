@@ -15,4 +15,8 @@ export class GithubService {
     const res = await axiosClient.get(`/users/${username}/${type}`);
     return res.data;
   }
+  async fetchRepo(username: string) {
+    const res = await axiosClient.get(`/users/${username}/repos`);
+    return res.data;
+  }
 }

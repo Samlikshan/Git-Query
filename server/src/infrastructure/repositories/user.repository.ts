@@ -19,43 +19,32 @@ export class UserRepositories implements IUserRepositories {
       data: user,
     });
   }
+  async getUsers(params: {
+    username?: string;
+    location?: string;
+    sortBy?: string;
+    order?: "asc" | "desc";
+    page?: number;
+    limit?: number;
+  }): Promise<{ users: User[]; total: number }> {
+    const {
+      username,
+      location,
+      sortBy = "created_at",
+      order = "desc",
+      page = 1,
+      limit = 10,
+    } = params;
 
-  async searchUsers(
-    filters: { username?: string; location?: string },
-    page: number = 1,
-    limit: number = 10,
-  ): Promise<{ users: User[]; total: number }> {
-    const where: any = {
-      isDeleted: false,
-    };
+    const where: any = { isDeleted: false };
 
-    if (filters.username) {
-      where.login = { contains: filters.username, mode: "insensitive" };
+    if (username) {
+      where.login = { contains: username, mode: "insensitive" };
+    }
+    if (location) {
+      where.location = { contains: location, mode: "insensitive" };
     }
 
-    if (filters.location) {
-      where.location = { contains: filters.location, mode: "insensitive" };
-    }
-
-    const [users, total] = await prisma.$transaction([
-      prisma.user.findMany({
-        where,
-        skip: (page - 1) * limit,
-        take: limit,
-        orderBy: { createdAt: "desc" },
-      }),
-      prisma.user.count({ where }),
-    ]);
-
-    return { users, total };
-  }
-
-  async listUsers(
-    sortBy: string = "createdAt",
-    order: "asc" | "desc" = "desc",
-    page: number = 1,
-    limit: number = 10,
-  ): Promise<{ users: User[]; total: number }> {
     const allowedSortFields: Record<string, string> = {
       public_repos: "publicRepos",
       public_gists: "publicGists",
@@ -63,17 +52,16 @@ export class UserRepositories implements IUserRepositories {
       following: "following",
       created_at: "createdAt",
     };
-
     const prismaField = allowedSortFields[sortBy] || "createdAt";
 
     const [users, total] = await prisma.$transaction([
       prisma.user.findMany({
-        where: { isDeleted: false },
+        where,
         skip: (page - 1) * limit,
         take: limit,
         orderBy: { [prismaField]: order },
       }),
-      prisma.user.count({ where: { isDeleted: false } }),
+      prisma.user.count({ where }),
     ]);
 
     return { users, total };

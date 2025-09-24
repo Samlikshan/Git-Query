@@ -11,13 +11,14 @@ export class CreateUser {
     @inject(TYPES.GithubService) private githubService: GithubService,
   ) {}
 
-  async execute(username: string): Promise<User> {
+  async execute(username: string): Promise<{ user: User; repos: any }> {
     const lowerUsername = username.toLowerCase();
 
     const existing = await this.userRepo.findByLogin(lowerUsername);
+    const repos = await this.githubService.fetchRepo(username);
 
     if (existing && !existing.isDeleted) {
-      return existing;
+      return { user: existing, repos: repos };
     }
 
     const gh = await this.githubService.fetchUser(lowerUsername);
@@ -40,9 +41,12 @@ export class CreateUser {
       fetchedAt: new Date(),
       isDeleted: false,
     };
+
     if (existing) {
-      return this.userRepo.update(user);
+      const updatedUser = await this.userRepo.update(user);
+      return { user: updatedUser, repos: repos };
     }
-    return this.userRepo.save(user);
+    const updatedUser = await this.userRepo.save(user);
+    return { user: updatedUser, repos: repos };
   }
 }
