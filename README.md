@@ -2,6 +2,11 @@
 
 A full‑stack application to search, store, update, and manage GitHub users, list repositories, and compute mutual followers/following. Organized as a monorepo with `client` (React + Vite) and `server` (Node.js + Express + Prisma).
 
+## Hosted URL
+
+- Frontend: https://git-query.vercel.app
+- Backend API: https://git-query-h3jk.vercel.app 
+
 ## Tech Stack
 
 ### Frontend
@@ -89,8 +94,8 @@ Errors are handled by centralized middleware with appropriate status codes.
 
 ### 1) Clone the repository
 ```bash
-git clone <your-repo-url>
-cd "Machine Task"
+git clone https://github.com/Samlikshan/Git-Query.git Git-Query
+cd "Git-Query"
 ```
 
 ### 2) Backend setup (`server`)
