@@ -7,6 +7,10 @@ A full‑stack application to search, store, update, and manage GitHub users, li
 - Frontend: https://git-query.vercel.app
 - Backend API: https://git-query-h3jk.vercel.app 
 
+### Demo
+
+![App Demo](docs/demo.gif)
+
 ## Tech Stack
 
 ### Frontend
