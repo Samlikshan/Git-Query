@@ -9,6 +9,7 @@ import { UserController } from "../presentation/controllers/user.controller";
 import { GetMutualFriends } from "../application/usecases/getmutualfriends.usecase";
 import { IFriendsRepository } from "../domain/repositories/IFriendsRepositories";
 import { FriendsRepository } from "../infrastructure/repositories/friend.repository";
+import { SearchUsers } from "../application/usecases/searchuser.usecase";
 
 const container = new Container();
 
@@ -33,6 +34,10 @@ container.bind<CreateUser>(TYPES.CreateUser).to(CreateUser).inSingletonScope();
 container
   .bind<GetMutualFriends>(TYPES.GetMutualFriends)
   .to(GetMutualFriends)
+  .inSingletonScope();
+container
+  .bind<SearchUsers>(TYPES.SearchUser)
+  .to(SearchUsers)
   .inSingletonScope();
 
 // Controllers

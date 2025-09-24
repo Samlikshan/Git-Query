@@ -6,6 +6,8 @@ import { UserController } from "../controllers/user.controller";
 const router = Router();
 const userController = container.get<UserController>(TYPES.UserController);
 
+router.get("/", userController.searchUsers.bind(userController));
+
 router.post("/:username", userController.getuser.bind(userController));
 router.post(
   "/:username/mutual",

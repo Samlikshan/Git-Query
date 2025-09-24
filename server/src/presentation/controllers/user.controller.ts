@@ -4,13 +4,14 @@ import { CreateUser } from "../../application/usecases/createuser.usecase";
 import TYPES from "../../config/types";
 import { BaseError } from "../../infrastructure/errors/base.error";
 import { GetMutualFriends } from "../../application/usecases/getmutualfriends.usecase";
+import { SearchUsers } from "../../application/usecases/searchuser.usecase";
 
 @injectable()
 export class UserController {
   constructor(
     @inject(TYPES.CreateUser) private createUser: CreateUser,
-    @inject(TYPES.GetMutualFriends)
-    private getMutualFriends: GetMutualFriends,
+    @inject(TYPES.GetMutualFriends) private getMutualFriends: GetMutualFriends,
+    @inject(TYPES.SearchUser) private searchUser: SearchUsers,
   ) {}
 
   async getuser(req: Request, res: Response, next: NextFunction) {
@@ -41,6 +42,29 @@ export class UserController {
       );
 
       res.status(200).json({ mutualFriends });
+    } catch (error) {
+      next(error);
+    }
+  }
+  async searchUsers(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { username, location, page = "1", limit = "10" } = req.query;
+
+      const result = await this.searchUser.execute(
+        { username: username as string, location: location as string },
+        parseInt(page as string, 10),
+        parseInt(limit as string, 10),
+      );
+
+      res.status(200).json({
+        data: result.users,
+        pagination: {
+          total: result.total,
+          page: parseInt(page as string, 10),
+          limit: parseInt(limit as string, 10),
+          totalPages: Math.ceil(result.total / parseInt(limit as string, 10)),
+        },
+      });
     } catch (error) {
       next(error);
     }

@@ -19,4 +19,33 @@ export class UserRepositories implements IUserRepositories {
       data: user,
     });
   }
+  async searchUsers(
+    filters: { username?: string; location?: string },
+    page: number = 1,
+    limit: number = 10,
+  ): Promise<{ users: User[]; total: number }> {
+    const where: any = {
+      isDeleted: false,
+    };
+
+    if (filters.username) {
+      where.login = { contains: filters.username, mode: "insensitive" };
+    }
+
+    if (filters.location) {
+      where.location = { contains: filters.location, mode: "insensitive" };
+    }
+
+    const [users, total] = await prisma.$transaction([
+      prisma.user.findMany({
+        where,
+        skip: (page - 1) * limit,
+        take: limit,
+        orderBy: { createdAt: "desc" },
+      }),
+      prisma.user.count({ where }),
+    ]);
+
+    return { users, total };
+  }
 }
