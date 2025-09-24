@@ -1,0 +1,83 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  text-decoration: none;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  white-space: nowrap;
+}
+
+.button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Sizes */
+.button-small {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  border-radius: 6px;
+}
+
+.button-medium {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+}
+
+.button-large {
+  padding: 1rem 2rem;
+  font-size: 1.125rem;
+}
+
+/* Variants */
+.button-primary {
+  background-color: #0366d6;
+  color: white;
+}
+
+.button-primary:hover:not(:disabled) {
+  background-color: #0256cc;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(3, 102, 214, 0.25);
+}
+
+.button-secondary {
+  background-color: #f8fafc;
+  color: #374151;
+  border: 2px solid #e2e8f0;
+}
+
+.button-secondary:hover:not(:disabled) {
+  background-color: #f6f8fa;
+  border-color: #d0d7de;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.button-danger {
+  background-color: #ef4444;
+  color: white;
+}
+
+.button-danger:hover:not(:disabled) {
+  background-color: #dc2626;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+@media (max-width: 768px) {
+  .button-medium {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.9375rem;
+  }
+
+  .button-large {
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
+  }
+}

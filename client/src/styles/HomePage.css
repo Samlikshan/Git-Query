@@ -1,0 +1,167 @@
+.home-page {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.welcome-section {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+}
+
+.welcome-section h1 {
+  color: #1f2937;
+  margin-bottom: 1rem;
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.welcome-section p {
+  color: #6b7280;
+  font-size: 1.125rem;
+  margin: 0;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.results-section {
+  margin-top: 3rem;
+}
+
+.results-layout {
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.profile-card-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.profile-actions {
+  padding: 1rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+  text-align: center;
+}
+
+.profile-sidebar {
+  position: sticky;
+  top: 2rem;
+}
+
+.repositories-main {
+  min-height: 400px;
+}
+
+.repositories-section {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.section-header h2 {
+  color: #1f2937;
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.repo-count {
+  color: #6b7280;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.no-repos {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.no-repos p {
+  color: #6b7280;
+  font-size: 1.125rem;
+  margin: 0;
+}
+
+.no-results {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+}
+
+.no-results h3 {
+  color: #1f2937;
+  margin-bottom: 1rem;
+}
+
+.no-results p {
+  color: #6b7280;
+  font-size: 1.125rem;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .home-page {
+    padding: 1.5rem 0.75rem;
+  }
+
+  .welcome-section {
+    padding: 3rem 1.5rem;
+  }
+
+  .welcome-section h1 {
+    font-size: 2rem;
+  }
+
+  .welcome-section p {
+    font-size: 1rem;
+    padding: 1.5rem;
+  }
+
+  .search-section h1 {
+    font-size: 2.25rem;
+  }
+
+  .search-section p {
+    font-size: 1rem;
+  }
+
+  .results-section {
+    margin-top: 2rem;
+  }
+
+  .results-layout {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .profile-sidebar {
+    position: static;
+  }
+}

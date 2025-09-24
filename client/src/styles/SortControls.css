@@ -1,0 +1,63 @@
+.sort-controls {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  background: white;
+  padding: 1.5rem;
+}
+
+.sort-group {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.sort-group label {
+  font-weight: 600;
+  color: #374151;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.sort-group select {
+  min-width: 160px;
+  padding: 0.5rem 0.75rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  background: white;
+  font-size: 0.875rem;
+  color: #374151;
+  cursor: pointer;
+}
+
+.sort-group select:focus {
+  outline: none;
+  border-color: #0366d6;
+  box-shadow: 0 0 0 3px rgba(3, 102, 214, 0.1);
+}
+
+.sort-group select:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background-color: #f9fafb;
+}
+
+@media (max-width: 768px) {
+  .sort-controls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+    padding: 1.25rem;
+  }
+
+  .sort-group {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+
+  .sort-group select {
+    min-width: auto;
+    width: 100%;
+  }
+}
