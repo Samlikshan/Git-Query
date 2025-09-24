@@ -7,5 +7,9 @@ const router = Router();
 const userController = container.get<UserController>(TYPES.UserController);
 
 router.post("/:username", userController.getuser.bind(userController));
+router.post(
+  "/:username/mutual",
+  userController.getFreinds.bind(userController),
+);
 
 export default router;

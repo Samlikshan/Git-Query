@@ -26,5 +26,21 @@ model User {
   createdAt   DateTime? @map("created_at")
   fetchedAt   DateTime  @default(now())
   isDeleted   Boolean   @default(false)
+
+  friends     Friend[]  @relation("UserFriends")
+}
+
+model Friend {
+  id        Int      @id @default(autoincrement())
+  userId    Int      
+  login     String   
+  avatarUrl String?  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation("UserFriends",fields: [userId], references: [id])
+
+  @@index([userId])
+  @@unique([userId, login])
 }
 

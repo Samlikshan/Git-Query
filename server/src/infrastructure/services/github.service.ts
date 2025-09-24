@@ -8,4 +8,11 @@ export class GithubService {
     const res = await axiosClient.get(`/users/${username}`);
     return res.data;
   }
+  async fetchUserConnections(
+    username: string,
+    type: "followers" | "following",
+  ): Promise<GitHubUser[]> {
+    const res = await axiosClient.get(`/users/${username}/${type}`);
+    return res.data;
+  }
 }
