@@ -4,7 +4,7 @@ import TYPES from "../../config/types";
 import { GithubService } from "../../infrastructure/services/github.service";
 import { BaseError } from "../../infrastructure/errors/base.error";
 import { IFriendsRepository } from "../../domain/repositories/IFriendsRepositories";
-import { Friend } from "../../generated/prisma";
+import { Friend } from "../../domain/entities/Friend";
 
 @injectable()
 export class GetMutualFriends {
