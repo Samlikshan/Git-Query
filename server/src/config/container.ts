@@ -11,6 +11,7 @@ import { IFriendsRepository } from "../domain/repositories/IFriendsRepositories"
 import { FriendsRepository } from "../infrastructure/repositories/friend.repository";
 import { SearchUsers } from "../application/usecases/searchuser.usecase";
 import { ListUsers } from "../application/usecases/listusers.usecase";
+import { SoftDeleteUser } from "../application/usecases/softdeleteuser.usecase";
 
 const container = new Container();
 
@@ -41,6 +42,10 @@ container
   .to(SearchUsers)
   .inSingletonScope();
 container.bind<ListUsers>(TYPES.listUsers).to(ListUsers).inSingletonScope();
+container
+  .bind<SoftDeleteUser>(TYPES.SoftDeleteUser)
+  .to(SoftDeleteUser)
+  .inSingletonScope();
 
 // Controllers
 container

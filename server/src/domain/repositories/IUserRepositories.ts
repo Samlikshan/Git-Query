@@ -15,4 +15,5 @@ export interface IUserRepositories {
     page: number,
     limit: number,
   ): Promise<{ users: User[]; total: number }>;
+  softDeleteById(id: number): Promise<User | null>;
 }

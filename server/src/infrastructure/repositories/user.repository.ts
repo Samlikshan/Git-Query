@@ -78,4 +78,10 @@ export class UserRepositories implements IUserRepositories {
 
     return { users, total };
   }
+  async softDeleteById(id: number): Promise<User | null> {
+    return prisma.user.update({
+      where: { id },
+      data: { isDeleted: true },
+    });
+  }
 }

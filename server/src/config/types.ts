@@ -6,6 +6,7 @@ const TYPES = {
   GetMutualFriends: Symbol.for("GetMutualFriends"),
   SearchUser: Symbol.for("SearchUser"),
   listUsers: Symbol.for("ListUsers"),
+  SoftDeleteUser: Symbol.for("SoftDeleteUser"),
   UserController: Symbol.for("UserController"),
 };
 

@@ -6,6 +6,7 @@ import { BaseError } from "../../infrastructure/errors/base.error";
 import { GetMutualFriends } from "../../application/usecases/getmutualfriends.usecase";
 import { SearchUsers } from "../../application/usecases/searchuser.usecase";
 import { ListUsers } from "../../application/usecases/listusers.usecase";
+import { SoftDeleteUser } from "../../application/usecases/softdeleteuser.usecase";
 
 @injectable()
 export class UserController {
@@ -15,6 +16,7 @@ export class UserController {
     private getMutualFriendsUseCawse: GetMutualFriends,
     @inject(TYPES.SearchUser) private searchUserUseCase: SearchUsers,
     @inject(TYPES.listUsers) private listUsersUseCase: ListUsers,
+    @inject(TYPES.SoftDeleteUser) private softDeleteUserUseCase: SoftDeleteUser,
   ) {}
 
   async getuser(req: Request, res: Response, next: NextFunction) {
@@ -96,6 +98,24 @@ export class UserController {
           limit: parseInt(limit as string, 10),
           totalPages: Math.ceil(result.total / parseInt(limit as string, 10)),
         },
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async softDeleteUser(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { username } = req.params;
+      if (!username) {
+        throw new BaseError("ValidationError", 400, "username is required");
+      }
+
+      const deletedUser = await this.softDeleteUserUseCase.execute(username);
+
+      res.status(200).json({
+        message: `User ${username} soft deleted successfully`,
+        user: deletedUser,
       });
     } catch (error) {
       next(error);

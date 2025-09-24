@@ -2,6 +2,7 @@ import { injectable } from "inversify";
 import { prisma } from "../db/prisma.client";
 import { IFriendsRepository } from "../../domain/repositories/IFriendsRepositories";
 import { Friend } from "../../domain/entities/Friend";
+import { User } from "../../domain/entities/User";
 
 @injectable()
 export class FriendsRepository implements IFriendsRepository {

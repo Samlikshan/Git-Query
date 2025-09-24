@@ -14,5 +14,6 @@ router.post(
   "/:username/mutual",
   userController.getFreinds.bind(userController),
 );
+router.delete("/:username", userController.softDeleteUser.bind(userController));
 
 export default router;
